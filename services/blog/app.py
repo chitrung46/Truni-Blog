@@ -33,11 +33,12 @@ def post(path):
     post = pages.get_or_404(f'posts/{path}')
     return render_template('blog/post.html', post=post)
 
-@freezer.register_generator
-def post_generator():
-    for page in pages:
-        if page.path.startswith('posts/'):
-            yield {'path': page.path[6:]}
+def register_generators(freezer):
+    @freezer.register_generator
+    def post_generator():
+        for page in pages:
+            if page.path.startswith('posts/'):
+                yield {'path': page.path[6:]}
 
 if __name__ == '__main__':
     app = create_app()
