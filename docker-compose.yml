@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  main:
+    build: .
+    ports:
+      - "${MAIN_PORT}:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+    depends_on:
+      - blog
+      - projects
+      - cv
+
+  blog:
+    build: .
+    command: python services/blog/app.py
+    ports:
+      - "${BLOG_PORT}:5001"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=services/blog/app.py
+
+  projects:
+    build: .
+    command: python services/projects/app.py
+    ports:
+      - "${PROJECTS_PORT}:5002"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=services/projects/app.py
+
+  cv:
+    build: .
+    command: python services/cv/app.py
+    ports:
+      - "${CV_PORT}:5003"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=services/cv/app.py 

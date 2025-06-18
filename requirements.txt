@@ -1,0 +1,9 @@
+Flask==3.0.2
+Flask-Markdown==0.3
+Flask-FlatPages==0.8
+Frozen-Flask==0.18
+Markdown==3.5.2
+Pygments==2.17.2
+python-frontmatter==1.0.0
+gunicorn==21.2.0
+python-dotenv==1.0.1 

@@ -1,0 +1,128 @@
+---
+layout: default
+title: Blog
+---
+
+<div class="blog-page">
+    <header class="page-header">
+        <h1>Blog Posts</h1>
+        <p>Articles about Deep Learning and Technology</p>
+    </header>
+
+    <div class="blog-content">
+        <div class="posts-list">
+            {% for post in paginator.posts %}
+            <article class="post-item">
+                <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+                <div class="post-meta">
+                    <time datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: "%B %d, %Y" }}
+                    </time>
+                    {% if post.author %}
+                    <span class="post-author">by {{ post.author }}</span>
+                    {% endif %}
+                </div>
+                <div class="post-excerpt">
+                    {{ post.excerpt | strip_html | truncatewords: 50 }}
+                </div>
+                <a href="{{ post.url | relative_url }}" class="read-more">Read More</a>
+            </article>
+            {% endfor %}
+        </div>
+
+        {% if paginator.total_pages > 1 %}
+        <div class="pagination">
+            {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path | relative_url }}" class="prev">&laquo; Previous</a>
+            {% endif %}
+
+            <span class="page-number">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+            {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next &raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.blog-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.page-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.post-item {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.post-item h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.post-item h2 a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.post-item h2 a:hover {
+    color: var(--primary-color);
+}
+
+.post-excerpt {
+    margin: 1rem 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 1rem;
+}
+
+.pagination a {
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.page-number {
+    color: #666;
+}
+</style> 
